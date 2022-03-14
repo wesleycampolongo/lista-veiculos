@@ -1,11 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lista_veiculos.lista_veiculos">
-    <uses-permission android:name="android.permission.INTERRNET"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
    <application
         android:label="lista_veiculos"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+       <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBHCHrXzBHSIcev4zTSmqYEEOtCfKTsqTg"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

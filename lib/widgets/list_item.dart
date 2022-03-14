@@ -15,7 +15,7 @@ class _ListItemVehicleState extends State<ListItemVehicle> {
 
   TextStyle style15dp = const TextStyle(fontSize: 15);
   TextStyle style27dp = const TextStyle(fontSize: 27);
-  late Placemark placemark;
+  Placemark? placemark;
 
   @override
   void initState() {
@@ -60,7 +60,7 @@ class _ListItemVehicleState extends State<ListItemVehicle> {
                         style: style27dp
                     ),
                     Text(
-                        widget.position.condutor_nome ?? "-",
+                        widget.position.condutor_nome,
                         style: style15dp
                     ),
                     Text(
@@ -85,7 +85,7 @@ class _ListItemVehicleState extends State<ListItemVehicle> {
   }
 
   String getFormattedAddress(){
-    return "${placemark.subAdministrativeArea}, ${placemark.administrativeArea}";
+    return "${placemark?.subAdministrativeArea}, ${placemark?.administrativeArea}";
   }
 }
 

@@ -7,9 +7,9 @@ class Mapa extends StatefulWidget {
   const Mapa({Key? key}) : super(key: key);
 
  @override
-  State<StatefulWidget> createState() => _OurMapaState();
+  _OurMapaState createState() => _OurMapaState();
   }
-}
+
 
 class _OurMapaState extends State<Mapa> {
   Map<MarkerId, Marker> markers = <MarkerId, Marker>{}; // CLASS MEMBER, MAP OF MARKS
@@ -65,7 +65,7 @@ class _OurMapaState extends State<Mapa> {
   Future<void> _onMapCreated (GoogleMapController controller) async {
     if (position != null) {
       final marker = Marker(
-        markerId: MarkerId(position!.veiculo_placa ?? ""),
+        markerId: MarkerId(position!.veiculo_placa),
         position: LatLng(position!.lat, position!.lng),
       );
       markers[marker.markerId] = marker ;
@@ -85,11 +85,30 @@ class _OurMapaState extends State<Mapa> {
         markers[marker.markerId] = marker ;
       }
 //como deixar todos markers visíveis
+
+      LatLngBounds bounds = boundsFromLatLngList(latLngs);
+      controller.animateCamera(
+        CameraUpdate.newLatLngBounds(bounds, 45.0),
+      );
     }
     setState(() {}) ;
   }
 
 
 
+LatLngBounds boundsFromLatLngList(List<LatLng> list) {
+  double? x0, x1, y0, y1;
+  for (LatLng latLng in list) {
+    if (x0 == null) {
+      x0 = x1 = latLng.latitude;
+      y0 = y1 = latLng.longitude;
+    } else {
+      if (latLng.latitude > x1!) x1 = latLng.latitude;
+      if (latLng.latitude < x0) x0 = latLng.latitude;
+      if (latLng.longitude > y1!) y1 = latLng.longitude;
+      if (latLng.longitude < y0!) y0 = latLng.longitude;
+    }
+  }
+  return LatLngBounds(northeast: LatLng(x1!, y1!), southwest: LatLng(x0!, y0!));
 }
-
+}
